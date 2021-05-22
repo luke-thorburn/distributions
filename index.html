@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <!-- META -->
+    
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Probability Distributions</title>
+    
+    <!-- CSS -->
+    
+    <link rel="stylesheet" type="text/css" href="main.css" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    
+    <!-- JAVASCRIPT -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2/build/vega.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0/build/vega-lite.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0/build/vega-embed.js"></script>
+    
+</head>
+
+<body>
+    
+    <main>
+        <select class="dists" onchange="changeDist()">
+            <option value="bernoulli">Bernoulli</option>
+            <option value="binomial">Binomial</option>
+            <option value="geometric">Geometric</option>
+            <option value="uniform">Uniform</option>
+            <option value="poisson">Poisson</option>
+            <option value="hypergeometric" disabled>Hypergeometric</option>
+            <option value="negative-binomial" disabled>Negative Binomial</option>
+        </select>
+        <div id="view"></div>
+    </main>
+
+    <script src="main.js"></script>
+
+</body>
+</html>

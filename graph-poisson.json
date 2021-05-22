@@ -1,0 +1,115 @@
+{
+	"$schema": "https://vega.github.io/schema/vega/v5.json",
+	"autosize": {"type": "fit", "resize": true},
+	"width": 730,
+	"height": 500,
+	"padding": 0,
+
+	"config": {
+		"axis": {
+			"labelFont": "Open Sans, sans-serif",
+			"titleFont": "Open Sans, sans-serif",
+			"titleFontSize": 20,
+			"titleFontWeight": 400,
+			"labelFontSize": 15
+		}
+	},
+	
+	"data": [
+		{
+			"name": "main",
+			"transform": [
+				{
+					"type": "sequence",
+					"start": 0,
+					"stop": 500,
+					"as": "x"
+				},
+				{
+					"type": "formula",
+					"as": "xFactorial",
+					"expr": "datum.x === 0 ? 1 : (sqrt(2 * PI * datum.x) * pow(datum.x / E, datum.x))"
+				},
+				{
+					"type": "formula",
+					"as": "p",
+					"expr": "(pow(E, -1*λ) * pow(λ, datum.x)) / datum.xFactorial"
+				},
+				{
+					"type": "filter",
+					"expr": "datum.x <= AxisLimit"
+				}
+			]
+		}
+	],
+
+	"signals": [
+		{
+			"name": "λ",
+			"value": 5,
+			"bind": {
+				"input": "range",
+				"min": 0.1,
+				"max": 100,
+				"step": 0.1
+			}
+		},
+		{
+			"name": "AxisLimit",
+			"value": 50,
+			"bind": {
+				"input": "select",
+				"options": [10, 50, 100, 200]
+			}
+		}
+	],
+
+	"scales": [
+		{
+			"name": "x",
+			"type": "linear",
+			"domain": { "signal": "[-.5, AxisLimit+.5]"},
+			"range": "width"
+		},
+		{
+			"name": "y",
+			"domain": [0,1],
+			"range": "height"
+		}
+	],
+
+	"axes": [
+		{
+			"orient": "bottom",
+			"scale": "x",
+			"title": "x",
+			"titleY": 50
+		},
+		{
+			"orient": "left",
+			"scale": "y",
+			"title": "p(x)",
+			"titleX": -50
+		}
+	],
+
+	"marks": [
+		{
+			"type": "rect",
+			"from": { "data":"main" },
+			"encode": {
+				"update": {
+					"fill": { "value": "#01579b" },
+					"x": { "scale": "x", "signal": "datum.x - .4" },
+					"width": { "signal": "0.8*(scale('x', 1) - scale('x', 0))" },
+					"y": { "scale": "y", "field": "p" },
+					"y2": { "scale": "y", "value": 0 },
+					"opacity": { "value": 0.8 }
+				},
+				"hover": {
+					"fill": { "value": "#002f6c" }
+				}
+			}
+		}
+	]
+}
