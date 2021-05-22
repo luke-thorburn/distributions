@@ -19,5 +19,11 @@ async function changeDist() {
 	render(newDist);
 }
 
-render('bernoulli');
+const distFromURL = (new URLSearchParams(window.location.search)).get('d');
 
+if (distFromURL !== null) {
+	document.querySelector('.dists').value = distFromURL;
+	render(distFromURL);
+} else {
+	render('bernoulli')
+}
